@@ -1,0 +1,31 @@
+[Setup]
+host=idefix.voc-vanleeuwen.com
+user=backup-username
+password= backup-password
+keyfile=''
+setupconfigfule=""
+
+[Target]
+user=rcmd
+group=rcmd
+sshkey=''
+
+[Tools]
+tool1=""
+tool2=""
+tool3=""
+
+[System]
+pid = /var/run/pi-uptodate.pid
+logdir = /var/log/
+logfile = pi-utd.log
+
+[Systems]
+rpi=["raspberrypi","raspberrypi2","raspberrypi3"]
+bpi=["bananapi1","bananapi2"]
+hb=["cb1","hboard1"]
+
+[Commands]
+cm1="awk -vDate=`date -d'now-2 hours' +[%d/%b/%Y:%H:%M:%S` ' { if ($4 > Date) print Date FS $4}' access.log"
+cm2=""
+cm3=""

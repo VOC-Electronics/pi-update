@@ -4,7 +4,7 @@
 - Twitter: [@raspberrypinl]
 - URL: [www.voc-electronics.com]
 - Created: Jun 5th, 2015
-- Last Updated: Jun 5th, 2015
+- Last Updated: Aug 18th, 2015
 
 
 # DESCRIPTION
@@ -12,9 +12,13 @@
     Python script to update keep your Pi's up to date and using the same config.
     
 # OPTIONS
-    -h, --help                       print this help text and exit
-    --version                        print program version and exit
-   
+    -h, --help          print this help text and exit
+    --version           print program version and exit
+    -c                  Check update needed
+    -u                  Update system
+    -f                  Check base config
+    -w                  Write base config
+    
 # CONFIGURATION
 
     -- Documentation and code needed.
