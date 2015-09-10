@@ -20,6 +20,10 @@ pid = /var/run/pi-uptodate.pid
 logdir = /var/log/
 logfile = pi-utd.log
 
+[Defaults]
+defuser=pi
+defpwd=raspberry
+
 [Systems]
 rpi=["raspberrypi","raspberrypi2","raspberrypi3"]
 bpi=["bananapi1","bananapi2"]

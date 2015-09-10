@@ -5,7 +5,7 @@ __author__ = 'Martijn van Leeuwen'
 #
 #  App name: pi-uptodate.py
 #
-#  Target system:  ARM
+#  Target system:  Linux
 #
 #  Description:
 #
@@ -45,7 +45,8 @@ yearstamp = ""
 logdir = ""
 logfile = ""
 pid_file = ""
-
+defuser = ""
+defpwd = ""
 
 def usage():
   print "==========================================================================="
@@ -78,6 +79,8 @@ def init():
   logdir = config.get('System', 'logdir')
   pid_file = config.get('System', 'pid')
   logfile = config.get('System', 'logfile')
+  defuser = config.get('Defaults', 'defuser')
+  defpwd = config.get('Defaults', 'defpwd')
 
   if logdir == "" : logdir = "/var/log/"
   if pid_file == "" : pid_file = "/var/run/pi-uptodate.pid"
