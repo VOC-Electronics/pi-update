@@ -68,35 +68,40 @@ def usage():
 
 
 def init():
-  config = ConfigParser.ConfigParser()
-  config.read("pi-uptodate.cnf")
+	global datestamp
+	global timestamp
+	global monthstamp
+	global yearstamp
+	global logdir
+	global logfile
+	global pid_file
+	global defuser
+	global defpwd
 
-  datestamp = time.strftime("%Y-%m-%d")
-  timestamp = time.strftime("%H:%M:%S")
-  monthstamp = time.strftime("%m")
-  yearstamp = time.strftime("%Y")
+	config = ConfigParser.ConfigParser()
+	config.read("./pi-uptodate.cnf")
+	datestamp = time.strftime("%Y-%m-%d")
+	timestamp = time.strftime("%H:%M:%S")
+	monthstamp = time.strftime("%m")
+	yearstamp = time.strftime("%Y")
 
-  logdir = config.get('System', 'logdir')
-  pid_file = config.get('System', 'pid')
-  logfile = config.get('System', 'logfile')
-  defuser = config.get('Defaults', 'defuser')
-  defpwd = config.get('Defaults', 'defpwd')
+	logdir = config.get('System', 'logdir')
+	pid_file = config.get('System', 'pid')
+	logfile = config.get('System', 'logfile')
+	defuser = config.get('Defaults', 'defuser')
+	defpwd = config.get('Defaults', 'defpwd')
 
-  if logdir == "" : logdir = "/var/log/"
-  if pid_file == "" : pid_file = "/var/run/pi-uptodate.pid"
-  if logfile == "" : logfile = "pi-utd.log"
-
-
-#def get_selection():
+	if logdir == "" : logdir = "/var/log/"
+	if pid_file == "" : pid_file = "/var/run/pi-uptodate.pid"
+	if logfile == "" : logfile = "pi-utd.log"
 
 
-def ssh_command(ip, user, passwrd, command, keyfile):
+def ssh_command(ip, user, passwrd, command, *keyfile):
   client = paramiko.SSHClient()
   if keyfile:
     client.load_host_keys(keyfile)
-
   client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-  client.connect(ip, username=user, password=passwd)
+  client.connect(ip, username=user, password=passwrd)
   ssh_session = client.get_transport().open_session()
   if ssh_session.active:
     ssh_session.send(command)
@@ -116,9 +121,7 @@ def main():
   #Initialise base and default parameters
   init()
 
-  # Some global variables
-  global action
-  global configfile
+  TESTIP="192.168.0.12"
 
   # Check if parameters where parsed. I not, display usage.
   if not len(sys.argv[1:]):
@@ -129,9 +132,14 @@ def main():
   if not args:
     usage()
 
+  print "defuser: ",defuser
+  print "defpwd: ",defpwd
+  print "Datestamp: ",datestamp
+  print "Logfile: ",logfile
 
+  print "Connecting to: ",TESTIP
+  ssh_command(ip=TESTIP, user=defuser, passwrd=defpwd, command="ls -la")
 # ===========================================================================
-
 # Main
 # ===========================================================================
 if __name__ == "__main__":
